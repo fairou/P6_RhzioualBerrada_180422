@@ -1,24 +1,31 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
-
+//Fonction signup
 exports.signup = (req, res, next) => {
 
-    bcrypt.hash(req.body.password, 10)
+    //Utilisation de bcrypt pour le hash du password
+    bcrypt.hash(req.body.password, Number(process.env.Salt))
         .then(hash => {
             const user = new User({
                 email: req.body.email,
                 password: hash
 
             });
+
             user.save()
                 .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ error })
+        });
 };
 
+//Fonction login
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {
@@ -33,11 +40,17 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         userId: user._id,
                         token: jwt.sign({ userId: user._id },
-                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUT0tFTl9LRVkiLCJuYW1lIjoiRmFyaGF0aSBmYWlyb3V6IiwiaWF0IjoxNTE2MjM5MDIyfQ.fDPzEGjX0LN2ZemHhvqANH9tiIJSjTtdAYZKnXg5I7g', { expiresIn: '24h' }
+                            process.env.Token, { expiresIn: process.env.ExpireToken }
                         )
                     });
                 })
-                .catch(error => res.status(500).json({ error }));
+                .catch(error => {
+                    console.log(error);
+                    res.status(500).json({ error })
+                });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ error })
+        });
 };
