@@ -10,8 +10,8 @@ Création d'une API de sauce piquante
    ```sh
    npm install
    ```
-2. Créer un dossier nommé "images" à la racine
-3. Créer un fichier nommé ".env" à la racine avec l'exemple de donner ci-dessous: 
+2. Créer un dossier "images" à la racine
+3. Créer un fichier ".env" à la racine avec l'exemple de donner ci-dessous: 
     ```sh
     DatabaseConnexion = "mongodb+srv://user:password@cluster/DatabaseName?retryWrites=true&w=majority"
     Token = "xxxx_TOKEN_XXXXX"
