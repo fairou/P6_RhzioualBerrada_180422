@@ -7,6 +7,8 @@ const cors = require("corss");
 //Protection des en-tetes headers
 const helmet = require("helmet");
 
+const path = require('path');
+
 // Prise en charge du fichier de configuration .env
 require("dotenv").config();
 
@@ -14,7 +16,7 @@ require("dotenv").config();
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces');
 
-const path = require('path');
+
 
 //Connexion à la bdd
 mongoose.connect(process.env.DatabaseConnexion, {
@@ -27,6 +29,8 @@ mongoose.connect(process.env.DatabaseConnexion, {
 //Utilisation d'express
 const app = express();
 
+app.use(express.static(path.join(__dirname, "images")));
+
 //Protection des en-tetes headers
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy());
@@ -35,23 +39,19 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 //CORS
 app.use(cors({
-    origin: 'http://localhost:4200'
-}));
-
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-    res.setHeader(
+    origin: 'http://localhost:4200',
+    setHeader: [(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-    );
-    res.setHeader(
+    ), (
         "Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-    );
-    next();
-});
+    )]
+}));
 
-// prise en charge de json envoyé par le front dans le body
+
+
+// pour analyser le corps de la requête. prise en charge de json envoyé par le front dans le body
 app.use(express.json());
 //Middleware pour l'authentification
 app.use('/api/auth', userRoutes);

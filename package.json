@@ -1,24 +1,25 @@
 {
-  "name": "web-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "corss": "^2.8.5",
-    "crypto-js": "^4.1.1",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "helmet": "^5.0.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.1",
-    "mongoose-unique-validator": "^3.0.0",
-    "multer": "^1.4.4",
-    "nodemon": "^2.0.15"
-  }
+    "name": "web-api",
+    "version": "1.0.0",
+    "description": "Les sauces piiquantes - API project",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Fairouz RHZIOUAL BERRADA",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "corss": "^2.8.5",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "helmet": "^5.0.2",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.3.1",
+        "mongoose-unique-validator": "^3.0.0",
+        "multer": "^1.4.4",
+        "nodemon": "^2.0.15",
+        "uuid": "^8.3.2"
+    }
 }

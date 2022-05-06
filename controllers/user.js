@@ -32,6 +32,7 @@ exports.login = (req, res, next) => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !' });
             }
+            //Utilisation de bcrypt pour le hash du password
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
@@ -50,7 +51,7 @@ exports.login = (req, res, next) => {
                 });
         })
         .catch(error => {
-            console.log(error);
-            res.status(500).json({ error })
+
+            res.status(200).json({ error })
         });
 };
