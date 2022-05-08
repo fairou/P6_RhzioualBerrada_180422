@@ -129,20 +129,19 @@ exports.likeDislikeSauces = (req, res, next) => {
                                 $inc: { dislikes: 1 },
                                 $push: { usersDisliked: req.body.userId },
                             })
-                            .then(() => res.status(200).json({ message: "Like retiré !" }))
+                            .then(() => res.status(200).json({ message: "disLike retiré !" }))
                             .catch((error) => res.status(500).json(error));
                     } else {
-                        //Si l'utilisateur a déjà liker le contenu alors il ne peut pas reliker
+                        //Si l'utilisateur a déjà disliker le contenu alors il ne peut pas redisliker
                         res.status(401).json({
-                            error: "Like déjà pris en compte",
+                            error: "disLike déjà pris en compte",
                         });
                     }
                     break;
 
                 case 0:
-
-                    //Si l'id user n'est pas présent dans le tableau des like alors on incrémente +1
-                    if (sauce.usersLiked.find((user) => user) === req.body.userId) {
+                    //Si l'id user n'est pas présent dans le tableau des like alors on incrémente -1
+                    if (sauce.usersLiked.find(user => user === req.body.userId)) {
                         Sauces.updateOne({ _id: req.params.id }, {
                                 $inc: { likes: -1 },
                                 $pull: { usersLiked: req.body.userId },
@@ -152,12 +151,12 @@ exports.likeDislikeSauces = (req, res, next) => {
                     }
                     //Si l'id user n'est pas présent dans le tableau des dislike alors on incrémente -1
 
-                    if (sauce.usersDisliked.find((user) => user) === req.body.userId) {
+                    if (sauce.usersDisliked.find(user => user === req.body.userId)) {
                         Sauces.updateOne({ _id: req.params.id }, {
                                 $inc: { dislikes: -1 },
                                 $pull: { usersDisliked: req.body.userId },
                             })
-                            .then(() => res.status(200).json({ message: "Like retiré !" }))
+                            .then(() => res.status(200).json({ message: "disLike retiré !" }))
                             .catch((error) => res.status(500).json(error));
                     }
                     break;
@@ -166,5 +165,5 @@ exports.likeDislikeSauces = (req, res, next) => {
 
 
         })
-        .catch(() => res.status(404).json({ error: "Sauce inexistante" }));
+        .catch((error) => res.status(404).json(error));
 };
