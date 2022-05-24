@@ -4,10 +4,9 @@ const app = require('./app');
 // Prise en charge du fichier dse configuration .env
 require('dotenv').config();
 
-//Utilisation d'un port spécifique depuis .env ou du port 3000 par défaut
 const normalizePort = val => {
     const port = parseInt(val, 10);
-
+    console.log(val);
     if (isNaN(port)) {
         return val;
     }
@@ -16,6 +15,8 @@ const normalizePort = val => {
     }
     return false;
 };
+
+//Utilisation d'un port spécifique depuis .env ou du port 3000 par défaut
 const port = normalizePort(process.env.Port || '3000');
 app.set('port', port);
 
